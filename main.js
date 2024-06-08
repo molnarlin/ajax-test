@@ -1,3 +1,5 @@
+const { isObjectMember } = require("@babel/types");
+
 const baseURL = "https://ci-swapi.herokuapp.com/api/";
 
 function getData(type, cb){
@@ -23,6 +25,7 @@ function getTableHeaders(obj){
 }
 
 function writeToDocument(type) {
+    var tableRows = [];
     var el = document.getElementById('data');
     el.innerHTML = '';
     getData(type, function(data){
@@ -30,8 +33,13 @@ function writeToDocument(type) {
         var tableHeaders = getTableHeaders(data[0]);
 
         data.forEach(function(item) {
-            //el.innerHTML += '<p>' + item.name + '</p>';
-            })
-            el.innerHTML = `<table>${tableHeaders}</table>`;
-        });
+            var dataRow = [];
+
+            Object.keys(item).forEach(function(key){
+                dataRow.push(`<td>${item[key]}</td>`);
+            });
+            tableRows.push(dataRow);
+        })
+            el.innerHTML = `<table>${tableHeaders}${tableRows}</table>`;
+    });
 }
