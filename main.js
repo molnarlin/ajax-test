@@ -13,15 +13,25 @@ function getData(type, cb){
     };
 }
 
+function getTableHeaders(obj){
+    var tableHeaders = [];
+    Object.keys(obj).forEach(function(key){
+        tableHeaders.push(`<td>${key}</td>`);
+    });
+
+    return `<td>${tableHeaders}</td>`;
+}
+
 function writeToDocument(type) {
     var el = document.getElementById('data');
     el.innerHTML = '';
     getData(type, function(data){
         data = data.results;
+        var tableHeaders = getTableHeaders(data[0]);
 
         data.forEach(function(item) {
-            document.getElementById("data").innerHTML += '<p>' + item.name + '</p>';
+            //el.innerHTML += '<p>' + item.name + '</p>';
+            })
+            el.innerHTML = `<table>${tableHeaders}</table>`;
         });
-        
-    });
 }
