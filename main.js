@@ -20,7 +20,7 @@ function writeToDocument(type) {
         data = data.results;
 
         data.forEach(function(item) {
-            document.getElementById("data").innerHTML += '<p>' + item.name '</p>';
+            document.getElementById("data").innerHTML += '<p>' + item.name + '</p>';
         });
         
     });
